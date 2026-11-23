@@ -1,0 +1,1798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050507">
+<meta name="description" content="Portfolio of Saheb Singh Arora, building across data, cloud and software engineering.">
+<title>Saheb Singh Arora | Data × Cloud × Software</title>
+
+<style>
+:root{
+  --bg:#050507;
+  --panel:#0b0c12;
+  --panel-2:#11131c;
+  --text:#f6f7fb;
+  --muted:#9299aa;
+  --cyan:#30e7ff;
+  --violet:#8a61ff;
+  --orange:#ff9257;
+  --green:#50ffb1;
+  --border:rgba(255,255,255,.11);
+  --mx:50vw;
+  --my:50vh;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  overflow-x:hidden;
+}
+button,input{font:inherit}
+button,a{cursor:pointer}
+::selection{background:var(--cyan);color:#040508}
+
+body.resume-mode *{
+  animation-duration:.001ms!important;
+  animation-iteration-count:1!important;
+}
+
+body.resume-mode .decorative,
+body.resume-mode .world,
+body.resume-mode .scroll-message,
+body.resume-mode #stars,
+body.resume-mode .cursor-glow{
+  display:none!important;
+}
+
+body.resume-mode .project-shell{
+  min-height:auto;
+  position:relative;
+  top:auto;
+}
+
+body.resume-mode .project{
+  min-height:auto;
+  margin-bottom:25px;
+}
+
+body.resume-mode .project-content{
+  min-height:auto;
+  max-width:none;
+  padding:32px;
+}
+
+body.resume-mode .project-overlay{
+  background:none;
+}
+
+body.resume-mode .project-shell{
+  background:var(--panel);
+}
+
+body.resume-mode .section{
+  padding:80px 0;
+}
+
+body.resume-mode .hero{
+  min-height:auto;
+  padding-top:160px;
+  padding-bottom:90px;
+}
+
+body.resume-mode .hero-title{
+  font-size:clamp(55px,10vw,120px);
+}
+
+body.resume-mode .demo,
+body.resume-mode .open-case{
+  display:none;
+}
+
+.background{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  background:
+    radial-gradient(700px circle at var(--mx) var(--my),rgba(48,231,255,.08),transparent 45%),
+    radial-gradient(circle at 82% 16%,rgba(138,97,255,.13),transparent 31%),
+    radial-gradient(circle at 10% 80%,rgba(255,146,87,.08),transparent 30%),
+    var(--bg);
+}
+
+#stars{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:-8;
+}
+
+.noise{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  opacity:.025;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.cursor-glow{
+  position:fixed;
+  width:260px;
+  height:260px;
+  margin:-130px 0 0 -130px;
+  border-radius:50%;
+  pointer-events:none;
+  z-index:-2;
+  background:radial-gradient(circle,rgba(48,231,255,.08),transparent 68%);
+}
+
+.progress{
+  position:fixed;
+  z-index:1001;
+  top:0;
+  left:0;
+  width:0;
+  height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--orange));
+  box-shadow:0 0 16px var(--cyan);
+}
+
+.loader{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  display:grid;
+  place-items:center;
+  background:#050507;
+  transition:.7s;
+}
+
+.loader.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader-box{width:min(620px,84vw)}
+.loader-label{
+  display:flex;
+  justify-content:space-between;
+  color:#778093;
+  font-family:monospace;
+  font-size:11px;
+  letter-spacing:.15em;
+  margin-bottom:14px;
+}
+
+.loader-track{
+  height:2px;
+  background:#1b1d27;
+  overflow:hidden;
+}
+
+.loader-bar{
+  width:0;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--orange));
+  transition:.08s;
+}
+
+.nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  z-index:200;
+  transform:translateX(-50%);
+  width:min(1160px,92%);
+  min-height:64px;
+  padding:8px 10px 8px 22px;
+  border:1px solid var(--border);
+  border-radius:100px;
+  background:rgba(7,8,12,.72);
+  backdrop-filter:blur(24px);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  color:white;
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:-.04em;
+}
+
+.logo span{color:var(--cyan)}
+
+.nav-links{display:flex;gap:3px}
+.nav-links a{
+  color:#a4acbd;
+  text-decoration:none;
+  font-size:12px;
+  padding:10px 13px;
+  border-radius:30px;
+}
+.nav-links a:hover{color:white;background:rgba(255,255,255,.07)}
+
+.nav-actions{display:flex;gap:7px}
+.nav-button{
+  border:1px solid var(--border);
+  border-radius:30px;
+  padding:10px 13px;
+  background:rgba(255,255,255,.05);
+  color:#d7dce6;
+  font-size:11px;
+}
+
+.mode-button.active{
+  color:#050507;
+  background:var(--cyan);
+}
+
+.hero{
+  position:relative;
+  width:min(1240px,91%);
+  margin:auto;
+  min-height:100vh;
+  padding:130px 0 80px;
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{position:relative;z-index:3;width:100%}
+.kicker{
+  color:var(--cyan);
+  font:11px monospace;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  margin-bottom:24px;
+}
+
+.hero-title{
+  max-width:1200px;
+  font-size:clamp(70px,11vw,165px);
+  line-height:.78;
+  letter-spacing:-.09em;
+  font-weight:900;
+  text-transform:uppercase;
+  transform-origin:left center;
+}
+
+.hero-title span{display:block}
+.hero-title .full{
+  background:linear-gradient(100deg,#fff 20%,var(--cyan) 55%,#b69bff 78%,var(--orange));
+  -webkit-background-clip:text;
+  color:transparent;
+}
+.hero-title .surname{
+  color:transparent;
+  -webkit-text-stroke:1px rgba(255,255,255,.48);
+}
+
+.hero-copy{
+  max-width:750px;
+  color:var(--muted);
+  font-size:clamp(17px,1.7vw,21px);
+  line-height:1.72;
+  margin-top:40px;
+}
+.hero-copy strong{color:white}
+
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.button{
+  display:inline-flex;
+  justify-content:center;
+  align-items:center;
+  min-height:48px;
+  padding:0 19px;
+  color:white;
+  text-decoration:none;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(255,255,255,.045);
+  transition:.25s;
+}
+.button:hover{
+  transform:translateY(-4px);
+  border-color:rgba(48,231,255,.42);
+}
+.button.primary{background:white;color:#050507;font-weight:800}
+
+.hero-orbit{
+  position:absolute;
+  right:-8%;
+  top:17%;
+  width:460px;
+  aspect-ratio:1;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:50%;
+  animation:spin 24s linear infinite;
+}
+.hero-orbit:before,.hero-orbit:after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  border:1px solid rgba(48,231,255,.1);
+}
+.hero-orbit:before{inset:17%}
+.hero-orbit:after{inset:36%}
+.orbit-dot{
+  position:absolute;
+  top:50%;
+  left:-6px;
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  background:var(--cyan);
+  box-shadow:0 0 28px var(--cyan);
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.scroll-message{
+  position:absolute;
+  right:0;
+  bottom:32px;
+  color:#687184;
+  font:10px monospace;
+  letter-spacing:.15em;
+  writing-mode:vertical-rl;
+}
+
+.marquee{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+  transform:rotate(-1deg) scale(1.01);
+  background:rgba(255,255,255,.015);
+}
+.marquee-track{
+  display:flex;
+  width:max-content;
+  animation:marquee 24s linear infinite;
+}
+.marquee span{
+  padding:19px 25px;
+  color:#7f879a;
+  font-size:11px;
+  letter-spacing:.14em;
+}
+.marquee b{color:var(--cyan);margin-left:38px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+.section{
+  width:min(1200px,90%);
+  margin:auto;
+  padding:140px 0;
+}
+
+.section-head{
+  display:grid;
+  grid-template-columns:145px 1fr;
+  gap:25px;
+  margin-bottom:80px;
+}
+.section-number{
+  padding-top:12px;
+  color:var(--cyan);
+  font:10px monospace;
+  letter-spacing:.16em;
+}
+.section-title{
+  font-size:clamp(48px,7.5vw,100px);
+  line-height:.91;
+  letter-spacing:-.065em;
+}
+.section-copy{
+  grid-column:2;
+  max-width:720px;
+  color:var(--muted);
+  font-size:17px;
+  line-height:1.75;
+}
+
+.project{position:relative;min-height:790px;margin-bottom:110px}
+.project-shell{
+  position:sticky;
+  top:103px;
+  min-height:calc(100vh - 128px);
+  border:1px solid var(--border);
+  border-radius:35px;
+  overflow:hidden;
+  background:#090a10;
+  box-shadow:0 40px 110px rgba(0,0,0,.42);
+}
+.world{position:absolute;inset:0;overflow:hidden}
+.project-overlay{
+  position:absolute;
+  inset:0;
+  z-index:2;
+  background:
+    linear-gradient(90deg,rgba(5,6,9,.98),rgba(5,6,9,.76) 44%,rgba(5,6,9,.12) 80%),
+    linear-gradient(0deg,rgba(5,6,9,.85),transparent 55%);
+}
+.project-content{
+  position:relative;
+  z-index:4;
+  max-width:730px;
+  min-height:calc(100vh - 128px);
+  padding:60px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.project-label{
+  color:var(--cyan);
+  font:10px monospace;
+  letter-spacing:.17em;
+  margin-bottom:14px;
+}
+.project-title{
+  font-size:clamp(48px,7vw,92px);
+  line-height:.88;
+  letter-spacing:-.07em;
+  margin-bottom:23px;
+}
+.project-description{
+  max-width:670px;
+  color:#a8b0c0;
+  line-height:1.7;
+}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:23px 0}
+.tag{
+  padding:8px 11px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:9px;
+  color:#d9dfeb;
+  background:rgba(255,255,255,.05);
+  font-size:10px;
+}
+.project-buttons{display:flex;gap:9px;flex-wrap:wrap}
+.open-case,.demo-trigger{
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  padding:13px 16px;
+  background:rgba(255,255,255,.07);
+  color:white;
+  font-size:12px;
+}
+.open-case:hover,.demo-trigger:hover{background:white;color:#050507}
+
+.pipeline-world{
+  background:
+    radial-gradient(circle at 75% 34%,rgba(48,231,255,.18),transparent 32%),
+    #060a10;
+}
+.pipeline{
+  position:absolute;
+  right:3%;
+  top:14%;
+  width:57%;
+  height:60%;
+}
+.pipe-line{
+  position:absolute;
+  top:45%;
+  left:8%;
+  width:84%;
+  height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
+  box-shadow:0 0 18px var(--cyan);
+}
+.pipe-node{
+  position:absolute;
+  top:33%;
+  width:145px;
+  height:105px;
+  border-radius:20px;
+  border:1px solid rgba(48,231,255,.25);
+  background:rgba(11,19,28,.87);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:#9eaabc;
+  font:10px monospace;
+  animation:float 6s ease-in-out infinite;
+}
+.pipe-node b{
+  display:block;
+  margin-bottom:8px;
+  color:var(--cyan);
+  font-size:24px;
+}
+.pipe-node:nth-child(2){left:0}
+.pipe-node:nth-child(3){left:36%;animation-delay:-2s}
+.pipe-node:nth-child(4){right:0;animation-delay:-4s}
+.packet{
+  position:absolute;
+  top:calc(45% - 5px);
+  left:8%;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 0 24px var(--cyan);
+  animation:packet 3.4s ease-in-out infinite;
+}
+@keyframes packet{to{left:91%}}
+@keyframes float{50%{transform:translateY(-20px)}}
+
+.dashboard-world{
+  background:
+    radial-gradient(circle at 77% 30%,rgba(138,97,255,.2),transparent 31%),
+    #090812;
+}
+.dashboard{
+  position:absolute;
+  width:650px;
+  right:-1%;
+  top:10%;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  transform:perspective(900px) rotateY(-14deg) rotateX(5deg);
+}
+.metric,.chart{
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(14,15,27,.86);
+  border-radius:18px;
+}
+.metric{padding:22px}
+.metric small{color:#757d92}
+.metric strong{display:block;font-size:31px;margin-top:8px}
+.chart{
+  grid-column:span 3;
+  height:260px;
+  padding:25px;
+  display:flex;
+  align-items:flex-end;
+  gap:12px;
+}
+.chart-bar{
+  flex:1;
+  height:var(--height);
+  background:linear-gradient(var(--cyan),var(--violet));
+  border-radius:7px 7px 1px 1px;
+  transition:.35s;
+}
+.chart-bar:hover{filter:brightness(1.4);transform:scaleY(1.08);transform-origin:bottom}
+
+.ai-world{
+  background:
+    radial-gradient(circle at 76% 36%,rgba(138,97,255,.22),transparent 31%),
+    #080711;
+}
+#neural{position:absolute;inset:0;width:100%;height:100%}
+.ai-core{
+  position:absolute;
+  right:18%;
+  top:27%;
+  width:230px;
+  height:230px;
+  border-radius:50%;
+  border:1px solid rgba(183,157,255,.35);
+  box-shadow:inset 0 0 60px rgba(138,97,255,.18),0 0 90px rgba(138,97,255,.15);
+  display:grid;
+  place-items:center;
+  font:12px monospace;
+  text-align:center;
+  color:#d2c2ff;
+  animation:pulse 4s ease-in-out infinite;
+}
+.ai-core:before{
+  content:"";
+  position:absolute;
+  inset:-38px;
+  border:1px dashed rgba(48,231,255,.18);
+  border-radius:50%;
+  animation:spin 14s linear infinite;
+}
+@keyframes pulse{50%{transform:scale(1.06);filter:brightness(1.25)}}
+
+.db-world{
+  background:
+    radial-gradient(circle at 76% 35%,rgba(255,146,87,.18),transparent 33%),
+    #0c0908;
+}
+.schema{
+  position:absolute;
+  right:3%;
+  top:8%;
+  width:650px;
+  height:530px;
+}
+.schema-line{
+  position:absolute;
+  height:1px;
+  background:var(--orange);
+  opacity:.35;
+  transform-origin:left;
+}
+.schema-line.one{width:310px;left:120px;top:135px;transform:rotate(10deg)}
+.schema-line.two{width:310px;left:150px;top:190px;transform:rotate(57deg)}
+.schema-line.three{width:260px;left:380px;top:190px;transform:rotate(103deg)}
+.table-card{
+  position:absolute;
+  width:180px;
+  border:1px solid rgba(255,146,87,.28);
+  border-radius:15px;
+  overflow:hidden;
+  background:rgba(24,16,13,.9);
+  animation:float 7s ease-in-out infinite;
+}
+.table-card:nth-of-type(1){left:2%;top:5%}
+.table-card:nth-of-type(2){right:2%;top:14%;animation-delay:-2s}
+.table-card:nth-of-type(3){left:35%;bottom:4%;animation-delay:-4s}
+.table-title{padding:12px;background:rgba(255,146,87,.13);font:10px monospace}
+.table-row{padding:8px 12px;border-top:1px solid rgba(255,255,255,.06);color:#94847c;font:9px monospace}
+
+.store-world{
+  background:
+    radial-gradient(circle at 75% 32%,rgba(255,146,87,.16),transparent 31%),
+    radial-gradient(circle at 88% 18%,rgba(138,97,255,.15),transparent 24%),
+    #09090e;
+}
+.product-card{
+  position:absolute;
+  right:11%;
+  top:11%;
+  width:265px;
+  padding:15px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:27px;
+  background:rgba(15,15,24,.88);
+  transform:rotate(7deg);
+}
+.product-image{
+  height:230px;
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 35% 30%,rgba(255,255,255,.38),transparent 11%),
+    linear-gradient(140deg,var(--orange),var(--violet));
+}
+.product-info{padding:17px 4px 5px;display:flex;justify-content:space-between}
+.cart-pill{
+  position:absolute;
+  right:36%;
+  top:25%;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:rgba(14,15,23,.9);
+  font:10px monospace;
+  animation:float 5s ease-in-out infinite;
+}
+
+.demo{
+  position:absolute;
+  z-index:8;
+  right:32px;
+  bottom:32px;
+  width:min(430px,calc(100% - 64px));
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:20px;
+  background:rgba(9,11,17,.92);
+  backdrop-filter:blur(18px);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(20px);
+  transition:.3s;
+}
+.demo.open{opacity:1;visibility:visible;transform:none}
+.demo-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.demo-head h4{font-size:14px}
+.demo-close{border:0;background:none;color:#8e97a9;font-size:20px}
+.demo-status{color:var(--cyan);font:10px monospace;margin-bottom:12px}
+.demo button{
+  padding:10px 13px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:rgba(255,255,255,.06);
+  color:white;
+}
+.demo button:hover{background:white;color:#050507}
+
+.process-preview{
+  height:135px;
+  border:1px dashed rgba(255,255,255,.16);
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  margin-bottom:14px;
+  color:#737d90;
+}
+.process-preview.processing{
+  background:linear-gradient(120deg,rgba(48,231,255,.2),rgba(138,97,255,.2));
+  color:white;
+  animation:pulse 1s infinite;
+}
+
+.power-filters{display:flex;gap:7px;margin-bottom:14px}
+.power-filters button.active{background:var(--cyan);color:#050507}
+.mini-bars{height:130px;display:flex;align-items:flex-end;gap:7px}
+.mini-bars i{
+  flex:1;
+  height:var(--v);
+  background:linear-gradient(var(--cyan),var(--violet));
+  border-radius:5px 5px 0 0;
+  transition:.35s;
+}
+
+.chat-window{height:180px;overflow:auto;margin-bottom:12px}
+.message{
+  max-width:82%;
+  margin:8px 0;
+  padding:10px 12px;
+  border-radius:12px;
+  color:#bcc5d6;
+  background:rgba(255,255,255,.06);
+  font-size:12px;
+  line-height:1.5;
+}
+.message.user{margin-left:auto;background:rgba(48,231,255,.13);color:white}
+.chat-form{display:flex;gap:7px}
+.chat-form input{
+  flex:1;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#090a10;
+  color:white;
+  padding:10px;
+}
+
+.schema-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.schema-demo button.active{background:var(--orange);color:#100806}
+
+.mini-shop{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.shop-item{
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px;
+  background:rgba(255,255,255,.04);
+}
+.shop-image{height:55px;border-radius:7px;background:linear-gradient(140deg,var(--orange),var(--violet));margin-bottom:7px}
+.shop-item small{display:block;margin-bottom:7px}
+.cart-count{color:var(--cyan);font:11px monospace;margin-bottom:10px}
+
+.experience-layout{
+  display:grid;
+  grid-template-columns:.85fr 1.5fr;
+  gap:85px;
+}
+.story{position:sticky;top:140px;height:max-content}
+.story h3{font-size:clamp(43px,5vw,75px);line-height:.92;letter-spacing:-.06em}
+.story p{color:var(--muted);line-height:1.75;margin-top:23px}
+.timeline{border-left:1px solid var(--border)}
+.role{position:relative;padding:0 0 65px 38px}
+.role:before{
+  content:"";
+  position:absolute;
+  left:-6px;
+  top:5px;
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  background:#090a10;
+  border:2px solid var(--cyan);
+  box-shadow:0 0 20px rgba(48,231,255,.45);
+}
+.role-date{color:#687184;font:10px monospace;letter-spacing:.12em}
+.role h4{font-size:27px;margin:9px 0 6px}
+.role-company{color:var(--cyan);font-size:13px;margin-bottom:13px}
+.role p{color:var(--muted);font-size:14px;line-height:1.7}
+
+.skills{
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-top:20px;
+}
+.skill{
+  padding:16px 19px;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+  font-size:clamp(15px,2vw,24px);
+  transition:.25s;
+}
+.skill:hover{
+  transform:translateY(-6px) rotate(-1deg);
+  color:#050507;
+  background:var(--cyan);
+}
+
+.credentials{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-top:55px;
+}
+.credential{
+  padding:27px;
+  min-height:220px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:rgba(255,255,255,.025);
+}
+.credential small{color:var(--cyan);font:9px monospace;letter-spacing:.13em}
+.credential h4{font-size:21px;line-height:1.3;margin:17px 0 10px}
+.credential p{color:var(--muted);font-size:13px;line-height:1.6}
+
+.footer{
+  min-height:90vh;
+  border-top:1px solid var(--border);
+  display:grid;
+  place-items:center;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.footer-content{position:relative;z-index:2;width:min(1050px,90%)}
+.footer h2{font-size:clamp(65px,11vw,155px);line-height:.79;letter-spacing:-.085em}
+.footer p{color:var(--muted);max-width:610px;margin:28px auto;line-height:1.7}
+.footer-actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.footer-glow{
+  position:absolute;
+  width:700px;
+  height:700px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(138,97,255,.15),transparent 65%);
+}
+
+.modal,.command{
+  position:fixed;
+  inset:0;
+  z-index:2000;
+  background:rgba(3,4,7,.84);
+  backdrop-filter:blur(18px);
+  opacity:0;
+  visibility:hidden;
+  transition:.25s;
+}
+.modal.open,.command.open{opacity:1;visibility:visible}
+.modal{display:grid;place-items:center;padding:20px}
+.modal-card{
+  position:relative;
+  width:min(850px,95vw);
+  max-height:86vh;
+  overflow:auto;
+  padding:44px;
+  border:1px solid var(--border);
+  border-radius:27px;
+  background:#0b0c12;
+}
+.modal-close{
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:37px;
+  height:37px;
+  border:1px solid var(--border);
+  border-radius:50%;
+  color:white;
+  background:rgba(255,255,255,.05);
+}
+.modal-label{color:var(--cyan);font:10px monospace;letter-spacing:.15em}
+.modal h3{font-size:clamp(40px,6vw,70px);line-height:.95;letter-spacing:-.055em;margin:13px 0 30px}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.case-grid h4{margin-bottom:9px}
+.case-grid p,.case-grid li{color:var(--muted);font-size:14px;line-height:1.7}
+.case-grid ul{padding-left:18px}
+
+.command{padding-top:13vh;display:grid;place-items:start center}
+.command-box{
+  width:min(630px,92vw);
+  overflow:hidden;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:#0b0c12;
+}
+.command-input{
+  width:100%;
+  border:0;
+  border-bottom:1px solid var(--border);
+  outline:0;
+  padding:20px;
+  background:transparent;
+  color:white;
+}
+.command-list{padding:8px}
+.command-item{
+  display:flex;
+  justify-content:space-between;
+  padding:14px;
+  border-radius:10px;
+  color:#abb3c4;
+  font-size:13px;
+}
+.command-item:hover{background:rgba(255,255,255,.07);color:white}
+
+.terminal{
+  position:fixed;
+  z-index:2200;
+  left:20px;
+  bottom:20px;
+  width:min(540px,calc(100vw - 40px));
+  border:1px solid rgba(48,231,255,.25);
+  border-radius:17px;
+  overflow:hidden;
+  background:rgba(5,8,12,.97);
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(18px);
+  transition:.25s;
+}
+.terminal.open{opacity:1;visibility:visible;transform:none}
+.terminal-head{padding:12px 15px;border-bottom:1px solid var(--border);color:#737d90;font:9px monospace}
+.terminal-output{height:270px;overflow:auto;padding:16px;color:#9ba7b9;font:11px/1.7 monospace}
+.terminal-output .command-text{color:var(--green)}
+.terminal-form{display:flex;padding:12px 15px;border-top:1px solid var(--border);color:var(--cyan);font-family:monospace}
+.terminal-form input{flex:1;margin-left:8px;border:0;outline:0;background:none;color:white;font:11px monospace}
+
+.reveal{opacity:0;transform:translateY(55px);transition:opacity .85s,transform 1s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:850px){
+  .nav-links{display:none}
+  .nav-button:first-child{display:none}
+  .hero-title{font-size:18vw}
+  .hero-orbit{opacity:.45}
+  .section-head{grid-template-columns:1fr}
+  .section-copy{grid-column:1}
+  .project{min-height:auto;margin-bottom:40px}
+  .project-shell{position:relative;top:0;min-height:720px}
+  .project-content{min-height:720px;padding:29px}
+  .project-overlay{background:linear-gradient(0deg,rgba(5,6,9,.99) 20%,rgba(5,6,9,.5) 76%,rgba(5,6,9,.18))}
+  .pipeline{right:-24%;width:100%;transform:scale(.7)}
+  .dashboard{right:-46%;transform:scale(.7)}
+  .ai-core{right:8%;top:13%;transform:scale(.65)}
+  .schema{right:-47%;transform:scale(.72)}
+  .product-card{right:3%;transform:scale(.7) rotate(7deg)}
+  .experience-layout{grid-template-columns:1fr;gap:60px}
+  .story{position:relative;top:0}
+  .credentials{grid-template-columns:1fr}
+  .case-grid{grid-template-columns:1fr}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*:before,*:after{
+    scroll-behavior:auto!important;
+    animation:none!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="loader" id="loader">
+  <div class="loader-box">
+    <div class="loader-label">
+      <span>INITIALIZING SAHEB SINGH ARORA</span>
+      <span id="loadValue">00%</span>
+    </div>
+    <div class="loader-track"><div class="loader-bar" id="loaderBar"></div></div>
+  </div>
+</div>
+
+<div class="background"></div>
+<canvas id="stars"></canvas>
+<div class="noise"></div>
+<div class="cursor-glow"></div>
+<div class="progress"></div>
+
+<nav class="nav">
+  <a href="#home" class="logo">SAHEB SINGH<span>.</span></a>
+
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <div class="nav-actions">
+    <button class="nav-button mode-button" id="modeButton">Recruiter mode</button>
+    <button class="nav-button" id="commandButton">⌘ K</button>
+  </div>
+</nav>
+
+<header class="hero" id="home">
+  <div class="hero-orbit decorative"><div class="orbit-dot"></div></div>
+
+  <div class="hero-content">
+    <div class="kicker">Computer Science · Data · Cloud · Software</div>
+
+    <h1 class="hero-title" id="heroTitle">
+      <span class="full">Saheb Singh</span>
+      <span class="surname">Arora</span>
+    </h1>
+
+    <p class="hero-copy">
+      Computer Science student at the University of New Brunswick building across
+      <strong>business intelligence, software engineering, data systems and cloud infrastructure.</strong>
+    </p>
+
+    <div class="actions">
+      <a class="button primary" href="#projects">Enter project worlds ↓</a>
+      <a class="button" href="https://github.com/sahebsa" target="_blank">GitHub ↗</a>
+      <a class="button" href="https://www.linkedin.com/in/saheb-singh-arora-9b8135257/" target="_blank">LinkedIn ↗</a>
+    </div>
+  </div>
+
+  <div class="scroll-message">SCROLL TO EXPLORE</div>
+</header>
+
+<div class="marquee decorative">
+  <div class="marquee-track">
+    <span>POWER BI <b>✦</b></span><span>PYTHON <b>✦</b></span>
+    <span>AWS <b>✦</b></span><span>REACT <b>✦</b></span>
+    <span>SQL <b>✦</b></span><span>FLASK <b>✦</b></span>
+    <span>DOCKER <b>✦</b></span><span>TYPESCRIPT <b>✦</b></span>
+    <span>POWER BI <b>✦</b></span><span>PYTHON <b>✦</b></span>
+    <span>AWS <b>✦</b></span><span>REACT <b>✦</b></span>
+    <span>SQL <b>✦</b></span><span>FLASK <b>✦</b></span>
+    <span>DOCKER <b>✦</b></span><span>TYPESCRIPT <b>✦</b></span>
+  </div>
+</div>
+
+<main>
+<section class="section" id="projects">
+  <div class="section-head reveal">
+    <div class="section-number">01 / INTERACTIVE PROJECTS</div>
+    <h2 class="section-title">Don’t just read.<br>Use the systems.</h2>
+    <p class="section-copy">
+      Each project includes a small interactive demonstration representing the
+      underlying workflow without pretending to be real production data.
+    </p>
+  </div>
+
+  <article class="project">
+    <div class="project-shell">
+      <div class="world pipeline-world">
+        <div class="pipeline">
+          <div class="pipe-line"></div>
+          <div class="packet"></div>
+          <div class="pipe-node"><div><b>01</b>UPLOAD</div></div>
+          <div class="pipe-node"><div><b>02</b>PROCESS</div></div>
+          <div class="pipe-node"><div><b>03</b>DELIVER</div></div>
+        </div>
+      </div>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <div class="project-label">01 · CLOUD / BACKEND</div>
+        <h3 class="project-title">Serverless Image<br>Processing Pipeline</h3>
+        <p class="project-description">
+          Python and Flask application with REST endpoints, asynchronous image processing,
+          job-status tracking, processed-image retrieval, SQLite records, Docker support
+          and automated testing exceeding 92% coverage.
+        </p>
+        <div class="tags">
+          <span class="tag">PYTHON</span><span class="tag">FLASK</span>
+          <span class="tag">AWS</span><span class="tag">DOCKER</span>
+          <span class="tag">REST API</span><span class="tag">SQLITE</span>
+        </div>
+        <div class="project-buttons">
+          <button class="demo-trigger" data-demo="pipelineDemo">Run processing demo</button>
+          <button class="open-case" data-case="pipeline">View architecture ↗</button>
+        </div>
+      </div>
+
+      <div class="demo" id="pipelineDemo">
+        <div class="demo-head"><h4>Image-processing simulation</h4><button class="demo-close">×</button></div>
+        <div class="demo-status" id="pipelineStatus">STATUS · WAITING FOR UPLOAD</div>
+        <div class="process-preview" id="processPreview">Sample image payload</div>
+        <button id="processButton">Upload and process</button>
+      </div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-shell">
+      <div class="world dashboard-world">
+        <div class="dashboard">
+          <div class="metric"><small>OCCUPANCY</small><strong>84%</strong></div>
+          <div class="metric"><small>RESERVATIONS</small><strong>12.4K</strong></div>
+          <div class="metric"><small>CHANGE</small><strong>+18%</strong></div>
+          <div class="chart">
+            <i class="chart-bar" style="--height:35%"></i>
+            <i class="chart-bar" style="--height:69%"></i>
+            <i class="chart-bar" style="--height:48%"></i>
+            <i class="chart-bar" style="--height:88%"></i>
+            <i class="chart-bar" style="--height:72%"></i>
+            <i class="chart-bar" style="--height:96%"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <div class="project-label">02 · BUSINESS INTELLIGENCE</div>
+        <h3 class="project-title">Hotel Reservation<br>Intelligence</h3>
+        <p class="project-description">
+          Interactive Power BI reporting for reservation activity, occupancy,
+          cancellations, demographics and booking trends using Power Query,
+          DAX calculations and report filters.
+        </p>
+        <div class="tags">
+          <span class="tag">POWER BI</span><span class="tag">POWER QUERY</span>
+          <span class="tag">DAX</span><span class="tag">DATA VISUALIZATION</span>
+        </div>
+        <div class="project-buttons">
+          <button class="demo-trigger" data-demo="powerDemo">Try dashboard filters</button>
+          <button class="open-case" data-case="dashboard">View reporting approach ↗</button>
+        </div>
+      </div>
+
+      <div class="demo" id="powerDemo">
+        <div class="demo-head"><h4>Illustrative dashboard interaction</h4><button class="demo-close">×</button></div>
+        <div class="demo-status">DEMO DATA · NOT PRODUCTION METRICS</div>
+        <div class="power-filters">
+          <button class="power-filter active" data-scale="1">All</button>
+          <button class="power-filter" data-scale=".62">Weekday</button>
+          <button class="power-filter" data-scale=".84">Weekend</button>
+        </div>
+        <div class="mini-bars">
+          <i style="--v:28%"></i><i style="--v:66%"></i><i style="--v:45%"></i>
+          <i style="--v:91%"></i><i style="--v:70%"></i><i style="--v:82%"></i>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-shell">
+      <div class="world ai-world">
+        <canvas id="neural"></canvas>
+        <div class="ai-core">LEX<br>↓<br>LAMBDA<br>↓<br>BEDROCK</div>
+      </div>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <div class="project-label">03 · GENERATIVE AI</div>
+        <h3 class="project-title">GenAI<br>Chatbot</h3>
+        <p class="project-description">
+          Conversational AI application using AWS Lex, Python-based Lambda
+          functions and Amazon Bedrock to process requests and produce dynamic responses.
+        </p>
+        <div class="tags">
+          <span class="tag">AWS LEX</span><span class="tag">LAMBDA</span>
+          <span class="tag">PYTHON</span><span class="tag">AMAZON BEDROCK</span>
+        </div>
+        <div class="project-buttons">
+          <button class="demo-trigger" data-demo="chatDemo">Try conversation flow</button>
+          <button class="open-case" data-case="chatbot">Trace architecture ↗</button>
+        </div>
+      </div>
+
+      <div class="demo" id="chatDemo">
+        <div class="demo-head"><h4>Cloud conversation simulation</h4><button class="demo-close">×</button></div>
+        <div class="demo-status">FLOW · LEX → LAMBDA → BEDROCK</div>
+        <div class="chat-window" id="chatWindow">
+          <div class="message">Ask about a project, skill or cloud service.</div>
+        </div>
+        <form class="chat-form" id="chatForm">
+          <input id="chatInput" placeholder="Ask something…" autocomplete="off">
+          <button>Send</button>
+        </form>
+      </div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-shell">
+      <div class="world db-world">
+        <div class="schema">
+          <i class="schema-line one"></i><i class="schema-line two"></i><i class="schema-line three"></i>
+          <div class="table-card">
+            <div class="table-title">EVENTS</div>
+            <div class="table-row">event_id · PK</div>
+            <div class="table-row">event_name</div>
+            <div class="table-row">event_date</div>
+          </div>
+          <div class="table-card">
+            <div class="table-title">ATTENDANCE</div>
+            <div class="table-row">attendance_id · PK</div>
+            <div class="table-row">event_id · FK</div>
+            <div class="table-row">member_id · FK</div>
+          </div>
+          <div class="table-card">
+            <div class="table-title">MEMBERS</div>
+            <div class="table-row">member_id · PK</div>
+            <div class="table-row">full_name</div>
+            <div class="table-row">volunteer_status</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <div class="project-label">04 · RELATIONAL DATA</div>
+        <h3 class="project-title">Event Management<br>Database</h3>
+        <p class="project-description">
+          Relational SQL design for events, members, attendance, volunteers and
+          feedback with reporting queries built around joins, filtering,
+          grouping and aggregation.
+        </p>
+        <div class="tags">
+          <span class="tag">SQL</span><span class="tag">DATABASE DESIGN</span>
+          <span class="tag">REPORTING</span><span class="tag">DATA MODELING</span>
+        </div>
+        <div class="project-buttons">
+          <button class="demo-trigger" data-demo="databaseDemo">Inspect relationships</button>
+          <button class="open-case" data-case="database">View data model ↗</button>
+        </div>
+      </div>
+
+      <div class="demo" id="databaseDemo">
+        <div class="demo-head"><h4>Relationship explorer</h4><button class="demo-close">×</button></div>
+        <div class="demo-status" id="schemaStatus">SELECT A TABLE</div>
+        <div class="schema-demo">
+          <button data-table="Events connects to Attendance through event_id.">Events</button>
+          <button data-table="Attendance connects events and members through foreign keys.">Attendance</button>
+          <button data-table="Members connects to Attendance through member_id.">Members</button>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <article class="project">
+    <div class="project-shell">
+      <div class="world store-world">
+        <div class="cart-pill">CART STATE · INTERACTIVE</div>
+        <div class="product-card">
+          <div class="product-image"></div>
+          <div class="product-info"><span>Future Product</span><strong>$149</strong></div>
+        </div>
+      </div>
+
+      <div class="project-overlay"></div>
+
+      <div class="project-content">
+        <div class="project-label">05 · FRONTEND DEVELOPMENT</div>
+        <h3 class="project-title">Interactive<br>E-Commerce</h3>
+        <p class="project-description">
+          Responsive React and TypeScript application with reusable components,
+          product filtering, cart management, checkout functionality and interactive state.
+        </p>
+        <div class="tags">
+          <span class="tag">REACT</span><span class="tag">TYPESCRIPT</span>
+          <span class="tag">STATE MANAGEMENT</span><span class="tag">RESPONSIVE UI</span>
+        </div>
+        <div class="project-buttons">
+          <button class="demo-trigger" data-demo="shopDemo">Use mini storefront</button>
+          <button class="open-case" data-case="commerce">View product flow ↗</button>
+        </div>
+      </div>
+
+      <div class="demo" id="shopDemo">
+        <div class="demo-head"><h4>Mini storefront</h4><button class="demo-close">×</button></div>
+        <div class="cart-count" id="cartCount">CART · 0 ITEMS</div>
+        <div class="mini-shop">
+          <div class="shop-item"><div class="shop-image"></div><small>Cloud Pack</small><button class="cart-add">Add</button></div>
+          <div class="shop-item"><div class="shop-image"></div><small>Data Pack</small><button class="cart-add">Add</button></div>
+          <div class="shop-item"><div class="shop-image"></div><small>UI Pack</small><button class="cart-add">Add</button></div>
+        </div>
+      </div>
+    </div>
+  </article>
+</section>
+
+<section class="section" id="experience">
+  <div class="section-head reveal">
+    <div class="section-number">02 / EXPERIENCE</div>
+    <h2 class="section-title">A path through<br>systems and users.</h2>
+    <p class="section-copy">
+      Experience across business intelligence, software development,
+      technical operations, audiovisual systems and IT support.
+    </p>
+  </div>
+
+  <div class="experience-layout">
+    <div class="story reveal">
+      <h3>Build.<br>Support.<br>Improve.</h3>
+      <p>
+        The work changes, but the method stays consistent: understand the system,
+        find the friction and make the experience more reliable.
+      </p>
+    </div>
+
+    <div class="timeline">
+      <article class="role reveal">
+        <div class="role-date">2024 — PRESENT</div>
+        <h4>Data Analyst & Power BI Developer</h4>
+        <div class="role-company">aetherStack · Fredericton</div>
+        <p>Developing dashboards, supporting Power BI Service workspaces and refreshes, troubleshooting datasets and transforming data using SQL, Python and Power Query.</p>
+      </article>
+
+      <article class="role reveal">
+        <div class="role-date">2025 — PRESENT</div>
+        <h4>Student Assistant</h4>
+        <div class="role-company">University of New Brunswick · CLF</div>
+        <p>Supporting classroom technology, AV equipment, event operations, equipment reservations and technical records.</p>
+      </article>
+
+      <article class="role reveal">
+        <div class="role-date">2026 — PRESENT</div>
+        <h4>Student Consultant</h4>
+        <div class="role-company">University of New Brunswick · ITS</div>
+        <p>Troubleshooting software, hardware and network issues while documenting incidents and recurring support patterns.</p>
+      </article>
+
+      <article class="role reveal">
+        <div class="role-date">2022</div>
+        <h4>Software Development Internship</h4>
+        <div class="role-company">Mumbai, India</div>
+        <p>Worked across Java interfaces, application components, SQL workflows, backend data operations, testing and debugging.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="skills">
+  <div class="section-head reveal">
+    <div class="section-number">03 / TECHNOLOGY</div>
+    <h2 class="section-title">Tools behind<br>the work.</h2>
+    <p class="section-copy">
+      A stack spanning analytics, cloud services, frontend engineering,
+      backend development, relational data and technical operations.
+    </p>
+  </div>
+
+  <div class="skills reveal">
+    <div class="skill">Power BI</div><div class="skill">Python</div>
+    <div class="skill">SQL</div><div class="skill">AWS</div>
+    <div class="skill">React.js</div><div class="skill">TypeScript</div>
+    <div class="skill">Power Query</div><div class="skill">DAX</div>
+    <div class="skill">Flask</div><div class="skill">Docker</div>
+    <div class="skill">REST APIs</div><div class="skill">Java</div>
+    <div class="skill">MySQL</div><div class="skill">SQLite</div>
+    <div class="skill">Git</div><div class="skill">Pandas</div>
+    <div class="skill">CI/CD</div>
+  </div>
+
+  <div class="credentials reveal">
+    <article class="credential">
+      <small>CERTIFICATION</small>
+      <h4>Microsoft Certified: Power BI Data Analyst Associate</h4>
+      <p>PL-300 certification focused on preparing, modeling, visualizing and analyzing data with Power BI.</p>
+    </article>
+    <article class="credential">
+      <small>ACADEMIC RECOGNITION</small>
+      <h4>Scholarship for Academic Excellence</h4>
+      <p>University of New Brunswick academic recognition for the 2022–2023 period.</p>
+    </article>
+    <article class="credential">
+      <small>STUDENT LEADERSHIP</small>
+      <h4>International Student Representative</h4>
+      <p>Representing international students in University of New Brunswick Student Union discussions during 2025–2026.</p>
+    </article>
+  </div>
+</section>
+</main>
+
+<footer class="footer" id="contact">
+  <div class="footer-glow decorative"></div>
+  <div class="footer-content reveal">
+    <div class="kicker">SAHEB SINGH ARORA · CONTACT</div>
+    <h2>Let’s build<br>something real.</h2>
+    <p>Interested in software engineering, analytics, cloud systems and technical problem-solving opportunities.</p>
+    <div class="footer-actions">
+      <a class="button primary" href="mailto:arorasahebs@gmail.com">Start a conversation ↗</a>
+      <a class="button" href="https://github.com/sahebsa" target="_blank">GitHub</a>
+      <a class="button" href="https://www.linkedin.com/in/saheb-singh-arora-9b8135257/" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<div class="command" id="command">
+  <div class="command-box">
+    <input class="command-input" id="commandInput" placeholder="Search portfolio actions…">
+    <div class="command-list">
+      <div class="command-item" data-go="#projects"><span>View interactive projects</span><span>01</span></div>
+      <div class="command-item" data-go="#experience"><span>Explore experience</span><span>02</span></div>
+      <div class="command-item" data-go="#skills"><span>Inspect skills</span><span>03</span></div>
+      <div class="command-item" data-go="#contact"><span>Contact Saheb Singh Arora</span><span>04</span></div>
+      <div class="command-item" data-terminal="true"><span>Open developer terminal</span><span>~/</span></div>
+      <div class="command-item" data-mode="true"><span>Toggle recruiter mode</span><span>R</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="terminal" id="terminal">
+  <div class="terminal-head">saheb-singh-arora@portfolio:~</div>
+  <div class="terminal-output" id="terminalOutput">
+    <div>Saheb Singh Arora portfolio terminal initialized.</div>
+    <div>Type <span class="command-text">help</span> for commands.</div>
+  </div>
+  <form class="terminal-form" id="terminalForm">
+    <span>❯</span><input id="terminalInput" autocomplete="off" spellcheck="false">
+  </form>
+</div>
+
+<script>
+const caseStudies = {
+  pipeline:{
+    label:"CLOUD / BACKEND CASE STUDY",
+    title:"Serverless Image Processing Pipeline",
+    challenge:"Create a structured workflow for image uploads, asynchronous transformations, job-status tracking and processed-image retrieval.",
+    components:["Python and Flask API","Asynchronous processing workflow","SQLite job tracking","Docker support","Upload and retrieval endpoints","Automated testing above 92% coverage"],
+    result:"A modular processing workflow that separates request handling, image transformation and job tracking."
+  },
+  dashboard:{
+    label:"BUSINESS INTELLIGENCE CASE STUDY",
+    title:"Hotel Reservation Intelligence",
+    challenge:"Turn reservation data into an accessible reporting experience for business and operational analysis.",
+    components:["Power Query transformations","DAX calculations","Occupancy analysis","Cancellation trends","Guest demographics","Interactive reporting filters"],
+    result:"A dashboard structure that makes booking trends and operating indicators easier to explore."
+  },
+  chatbot:{
+    label:"GENERATIVE AI CASE STUDY",
+    title:"GenAI Chatbot",
+    challenge:"Connect conversational input to serverless request processing and generative responses.",
+    components:["AWS Lex interface","Python Lambda functions","Amazon Bedrock integration","Intent processing","Dynamic responses","Cloud service orchestration"],
+    result:"A cohesive cloud conversation flow connecting managed services and generative AI."
+  },
+  database:{
+    label:"RELATIONAL DATA CASE STUDY",
+    title:"Event Management Database",
+    challenge:"Organize events, members, attendance, volunteering and feedback inside a reporting-ready relational structure.",
+    components:["Relational schema","Primary and foreign keys","Attendance tracking","Join-based reports","Grouping and aggregation","Participation analysis"],
+    result:"A consistent SQL model replacing disconnected event and participation records."
+  },
+  commerce:{
+    label:"FRONTEND CASE STUDY",
+    title:"Interactive E-Commerce",
+    challenge:"Maintain a coherent product experience across discovery, filtering, cart state and checkout.",
+    components:["React components","TypeScript","Product filtering","Cart state","Checkout interactions","Responsive layouts"],
+    result:"A reusable component architecture supporting a complete interactive shopping flow."
+  }
+};
+
+let load=0;
+const loaderInterval=setInterval(()=>{
+  load+=Math.floor(Math.random()*12)+5;
+  if(load>=100){
+    load=100;
+    clearInterval(loaderInterval);
+    setTimeout(()=>document.getElementById("loader").classList.add("hidden"),300);
+  }
+  document.getElementById("loaderBar").style.width=load+"%";
+  document.getElementById("loadValue").textContent=String(load).padStart(2,"0")+"%";
+},70);
+
+const glow=document.querySelector(".cursor-glow");
+addEventListener("mousemove",event=>{
+  document.documentElement.style.setProperty("--mx",event.clientX+"px");
+  document.documentElement.style.setProperty("--my",event.clientY+"px");
+  glow.style.left=event.clientX+"px";
+  glow.style.top=event.clientY+"px";
+});
+
+addEventListener("scroll",()=>{
+  const maximum=document.documentElement.scrollHeight-innerHeight;
+  document.querySelector(".progress").style.width=(scrollY/maximum)*100+"%";
+
+  const heroProgress=Math.min(scrollY/innerHeight,1);
+  const title=document.getElementById("heroTitle");
+  title.style.transform=`scale(${1-heroProgress*.12}) translateY(${heroProgress*65}px)`;
+  title.style.opacity=1-heroProgress*.65;
+});
+
+const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting) entry.target.classList.add("visible");
+  });
+},{threshold:.12});
+document.querySelectorAll(".reveal").forEach(element=>revealObserver.observe(element));
+
+document.querySelectorAll(".demo-trigger").forEach(button=>{
+  button.onclick=()=>{
+    document.querySelectorAll(".demo").forEach(demo=>demo.classList.remove("open"));
+    document.getElementById(button.dataset.demo).classList.add("open");
+  };
+});
+document.querySelectorAll(".demo-close").forEach(button=>{
+  button.onclick=()=>button.closest(".demo").classList.remove("open");
+});
+
+const processButton=document.getElementById("processButton");
+processButton.onclick=()=>{
+  const preview=document.getElementById("processPreview");
+  const status=document.getElementById("pipelineStatus");
+  processButton.disabled=true;
+  preview.classList.add("processing");
+  preview.textContent="Processing transformation…";
+  status.textContent="STATUS · PROCESSING";
+
+  setTimeout(()=>{
+    preview.textContent="Transformation complete ✓";
+    status.textContent="STATUS · RESULT READY";
+    processButton.textContent="Process another image";
+    processButton.disabled=false;
+  },1600);
+};
+
+document.querySelectorAll(".power-filter").forEach(button=>{
+  button.onclick=()=>{
+    document.querySelectorAll(".power-filter").forEach(item=>item.classList.remove("active"));
+    button.classList.add("active");
+    const scale=Number(button.dataset.scale);
+    document.querySelectorAll(".mini-bars i").forEach((bar,index)=>{
+      const values=[28,66,45,91,70,82];
+      bar.style.height=Math.max(12,values[index]*scale)+"%";
+    });
+  };
+});
+
+document.getElementById("chatForm").onsubmit=event=>{
+  event.preventDefault();
+  const input=document.getElementById("chatInput");
+  if(!input.value.trim()) return;
+
+  const chat=document.getElementById("chatWindow");
+  chat.innerHTML+=`<div class="message user">${input.value}</div>`;
+  const query=input.value.toLowerCase();
+  input.value="";
+
+  let response="The request would move from AWS Lex to a Python Lambda function, then use Amazon Bedrock when a generative response is needed.";
+  if(query.includes("project")) response="Saheb Singh Arora's portfolio features cloud processing, business intelligence, generative AI, relational databases and React development.";
+  if(query.includes("skill")) response="Core skills include Power BI, Python, SQL, AWS, React, TypeScript, Flask, Docker, DAX and Power Query.";
+
+  setTimeout(()=>{
+    chat.innerHTML+=`<div class="message">${response}</div>`;
+    chat.scrollTop=chat.scrollHeight;
+  },550);
+};
+
+document.querySelectorAll(".schema-demo button").forEach(button=>{
+  button.onclick=()=>{
+    document.querySelectorAll(".schema-demo button").forEach(item=>item.classList.remove("active"));
+    button.classList.add("active");
+    document.getElementById("schemaStatus").textContent=button.dataset.table.toUpperCase();
+  };
+});
+
+let cart=0;
+document.querySelectorAll(".cart-add").forEach(button=>{
+  button.onclick=()=>{
+    cart++;
+    document.getElementById("cartCount").textContent=`CART · ${cart} ITEM${cart===1?"":"S"}`;
+    button.textContent="Added ✓";
+    setTimeout(()=>button.textContent="Add",700);
+  };
+});
+
+const modal=document.getElementById("modal");
+const modalContent=document.getElementById("modalContent");
+
+document.querySelectorAll(".open-case").forEach(button=>{
+  button.onclick=()=>{
+    const item=caseStudies[button.dataset.case];
+    modalContent.innerHTML=`
+      <div class="modal-label">${item.label}</div>
+      <h3>${item.title}</h3>
+      <div class="case-grid">
+        <div>
+          <h4>The challenge</h4>
+          <p>${item.challenge}</p><br>
+          <h4>Outcome</h4>
+          <p>${item.result}</p>
+        </div>
+        <div>
+          <h4>System components</h4>
+          <ul>${item.components.map(component=>`<li>${component}</li>`).join("")}</ul>
+        </div>
+      </div>`;
+    modal.classList.add("open");
+  };
+});
+document.getElementById("modalClose").onclick=()=>modal.classList.remove("open");
+modal.onclick=event=>{if(event.target===modal) modal.classList.remove("open")};
+
+const modeButton=document.getElementById("modeButton");
+function toggleMode(){
+  document.body.classList.toggle("resume-mode");
+  const active=document.body.classList.contains("resume-mode");
+  modeButton.classList.toggle("active",active);
+  modeButton.textContent=active?"Experience mode":"Recruiter mode";
+}
+modeButton.onclick=toggleMode;
+
+const command=document.getElementById("command");
+const commandInput=document.getElementById("commandInput");
+document.getElementById("commandButton").onclick=()=>{
+  command.classList.add("open");
+  setTimeout(()=>commandInput.focus(),80);
+};
+
+document.querySelectorAll(".command-item").forEach(item=>{
+  item.onclick=()=>{
+    if(item.dataset.go) document.querySelector(item.dataset.go).scrollIntoView({behavior:"smooth"});
+    if(item.dataset.terminal) document.getElementById("terminal").classList.add("open");
+    if(item.dataset.mode) toggleMode();
+    command.classList.remove("open");
+  };
+});
+
+commandInput.oninput=()=>{
+  const query=commandInput.value.toLowerCase();
+  document.querySelectorAll(".command-item").forEach(item=>{
+    item.style.display=item.textContent.toLowerCase().includes(query)?"flex":"none";
+  });
+};
+
+command.onclick=event=>{if(event.target===command) command.classList.remove("open")};
+
+const terminal=document.getElementById("terminal");
+const terminalOutput=document.getElementById("terminalOutput");
+const terminalInput=document.getElementById("terminalInput");
+
+const terminalCommands={
+  help:"Commands: about, experience, projects, skills, education, certifications, contact, github, linkedin, hire saheb, recruiter, clear, exit",
+  about:"Saheb Singh Arora is a Computer Science student building across software, business intelligence, data and cloud systems.",
+  experience:"Experience: Power BI development, data analysis, software development, technical operations, AV systems and IT support.",
+  projects:"Projects: Image Processing Pipeline, Hotel Reservation Intelligence, GenAI Chatbot, Event Management Database and React E-Commerce.",
+  skills:"Power BI · Python · SQL · AWS · React · TypeScript · Flask · Docker · DAX · Power Query · REST APIs",
+  education:"Bachelor of Computer Science · University of New Brunswick · 2022–Present",
+  certifications:"Microsoft Certified: Power BI Data Analyst Associate · Power BI for Beginners · Introduction to SQL · Introduction to R",
+  contact:"Email: arorasahebs@gmail.com",
+  github:"Opening GitHub profile…",
+  linkedin:"Opening LinkedIn profile…",
+  "hire saheb":"Excellent command. Moving to contact."
+};
+
+document.getElementById("terminalForm").onsubmit=event=>{
+  event.preventDefault();
+  const value=terminalInput.value.trim().toLowerCase();
+  terminalOutput.innerHTML+=`<div class="command-text">❯ ${value}</div>`;
+
+  if(value==="clear"){
+    terminalOutput.innerHTML="";
+  }else if(value==="exit"){
+    terminal.classList.remove("open");
+  }else if(value==="recruiter"){
+    toggleMode();
+    terminalOutput.innerHTML+="<div>Portfolio display mode changed.</div>";
+  }else if(value==="github"){
+    terminalOutput.innerHTML+=`<div>${terminalCommands.github}</div>`;
+    window.open("https://github.com/sahebsa","_blank");
+  }else if(value==="linkedin"){
+    terminalOutput.innerHTML+=`<div>${terminalCommands.linkedin}</div>`;
+    window.open("https://www.linkedin.com/in/saheb-singh-arora-9b8135257/","_blank");
+  }else if(value==="hire saheb"){
+    terminalOutput.innerHTML+=`<div>${terminalCommands[value]}</div>`;
+    document.querySelector("#contact").scrollIntoView({behavior:"smooth"});
+  }else{
+    terminalOutput.innerHTML+=`<div>${terminalCommands[value]||"Command not found. Type help."}</div>`;
+  }
+
+  terminalInput.value="";
+  terminalOutput.scrollTop=terminalOutput.scrollHeight;
+};
+
+addEventListener("keydown",event=>{
+  if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==="k"){
+    event.preventDefault();
+    command.classList.toggle("open");
+    if(command.classList.contains("open")) setTimeout(()=>commandInput.focus(),80);
+  }
+  if(event.key==="`"&&!event.target.matches("input")){
+    terminal.classList.toggle("open");
+    setTimeout(()=>terminalInput.focus(),80);
+  }
+  if(event.key==="Escape"){
+    command.classList.remove("open");
+    modal.classList.remove("open");
+    terminal.classList.remove("open");
+    document.querySelectorAll(".demo").forEach(demo=>demo.classList.remove("open"));
+  }
+});
+
+const stars=document.getElementById("stars");
+const starContext=stars.getContext("2d");
+let particles=[];
+
+function resizeStars(){
+  stars.width=innerWidth*devicePixelRatio;
+  stars.height=innerHeight*devicePixelRatio;
+  starContext.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  particles=Array.from({length:Math.min(95,Math.floor(innerWidth/12))},()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    vx:(Math.random()-.5)*.15,
+    vy:(Math.random()-.5)*.15,
+    radius:Math.random()*1.4+.3
+  }));
+}
+
+function animateStars(){
+  starContext.clearRect(0,0,innerWidth,innerHeight);
+  particles.forEach(particle=>{
+    particle.x+=particle.vx;
+    particle.y+=particle.vy;
+    if(particle.x<0||particle.x>innerWidth) particle.vx*=-1;
+    if(particle.y<0||particle.y>innerHeight) particle.vy*=-1;
+    starContext.beginPath();
+    starContext.arc(particle.x,particle.y,particle.radius,0,Math.PI*2);
+    starContext.fillStyle="rgba(136,218,255,.35)";
+    starContext.fill();
+  });
+  requestAnimationFrame(animateStars);
+}
+
+resizeStars();
+animateStars();
+addEventListener("resize",resizeStars);
+
+const neural=document.getElementById("neural");
+const neuralContext=neural.getContext("2d");
+let nodes=[];
+
+function resizeNeural(){
+  const rectangle=neural.getBoundingClientRect();
+  neural.width=rectangle.width*devicePixelRatio;
+  neural.height=rectangle.height*devicePixelRatio;
+  neuralContext.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+  nodes=Array.from({length:45},()=>({
+    x:rectangle.width*(.52+Math.random()*.44),
+    y:rectangle.height*(.08+Math.random()*.75),
+    vx:(Math.random()-.5)*.28,
+    vy:(Math.random()-.5)*.28
+  }));
+}
+
+function animateNeural(){
+  const rectangle=neural.getBoundingClientRect();
+  neuralContext.clearRect(0,0,rectangle.width,rectangle.height);
+
+  nodes.forEach((node,index)=>{
+    node.x+=node.vx;
+    node.y+=node.vy;
+    if(node.x<rectangle.width*.48||node.x>rectangle.width) node.vx*=-1;
+    if(node.y<0||node.y>rectangle.height) node.vy*=-1;
+
+    neuralContext.beginPath();
+    neuralContext.arc(node.x,node.y,2,0,Math.PI*2);
+    neuralContext.fillStyle="rgba(198,172,255,.75)";
+    neuralContext.fill();
+
+    nodes.slice(index+1).forEach(other=>{
+      const distance=Math.hypot(node.x-other.x,node.y-other.y);
+      if(distance<100){
+        neuralContext.beginPath();
+        neuralContext.moveTo(node.x,node.y);
+        neuralContext.lineTo(other.x,other.y);
+        neuralContext.strokeStyle=`rgba(147,108,255,${(1-distance/100)*.24})`;
+        neuralContext.stroke();
+      }
+    });
+  });
+
+  requestAnimationFrame(animateNeural);
+}
+
+setTimeout(()=>{
+  resizeNeural();
+  animateNeural();
+},250);
+addEventListener("resize",resizeNeural);
+</script>
+</body>
+</html>
